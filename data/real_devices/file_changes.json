@@ -1,0 +1,15 @@
+{"timestamp": "2025-01-27T17:15:56.907360", "event_type": "CREATED", "file_path": "C:/Users/Public/Documents\\New Microsoft Word Document.docx", "file_size": 0, "file_hash": "d41d8cd98f00b204e9800998ecf8427e"}
+{"timestamp": "2025-01-27T17:26:55.346981", "event_type": "DELETED", "file_path": "C:/Users/Public/Documents\\New Microsoft Word Document.docx", "file_size": 0, "file_hash": null}
+{"timestamp": "2025-01-27T17:26:55.346981", "event_type": "DELETED", "file_path": "C:/Users/Public/Documents\\New Microsoft Word Document.docx", "file_size": 0, "file_hash": null}
+{"timestamp": "2025-01-27T17:27:25.338176", "event_type": "CREATED", "file_path": "C:/Users/Public/Documents\\New Microsoft Word Document.docx", "file_size": 0, "file_hash": "d41d8cd98f00b204e9800998ecf8427e"}
+{"timestamp": "2025-01-27T17:27:25.338176", "event_type": "CREATED", "file_path": "C:/Users/Public/Documents\\New Microsoft Word Document.docx", "file_size": 0, "file_hash": "d41d8cd98f00b204e9800998ecf8427e"}
+{"timestamp": "2025-01-27T17:27:54.427474", "event_type": "CREATED", "file_path": "C:/Users/Public/Documents\\New folder", "file_size": 0, "file_hash": null}
+{"timestamp": "2025-01-27T17:27:55.328242", "event_type": "MODIFIED", "file_path": "C:/Users/Public/Documents\\New folder", "file_size": 0, "file_hash": null}
+{"timestamp": "2025-01-27T17:28:23.723524", "event_type": "CREATED", "file_path": "C:/Users/Public/Documents\\TIBA_BFB401_S24_C1_leen_183424.pdf", "file_size": 1469270, "file_hash": null}
+{"timestamp": "2025-01-27T17:28:23.723524", "event_type": "CREATED", "file_path": "C:/Users/Public/Documents\\TIBA_BFB401_S24_C1_leen_183424.pdf", "file_size": 1469270, "file_hash": null}
+{"timestamp": "2025-01-27T17:28:23.727532", "event_type": "MODIFIED", "file_path": "C:/Users/Public/Documents\\TIBA_BFB401_S24_C1_leen_183424.pdf", "file_size": 1469270, "file_hash": null}
+{"timestamp": "2025-01-27T17:28:23.726531", "event_type": "MODIFIED", "file_path": "C:/Users/Public/Documents\\TIBA_BFB401_S24_C1_leen_183424.pdf", "file_size": 1469270, "file_hash": null}
+{"timestamp": "2025-01-27T17:28:23.730529", "event_type": "MODIFIED", "file_path": "C:/Users/Public/Documents\\TIBA_BFB401_S24_C1_leen_183424.pdf", "file_size": 1469270, "file_hash": null}
+{"timestamp": "2025-01-27T17:28:23.730529", "event_type": "MODIFIED", "file_path": "C:/Users/Public/Documents\\TIBA_BFB401_S24_C1_leen_183424.pdf", "file_size": 1469270, "file_hash": null}
+{"timestamp": "2025-01-27T17:28:23.734532", "event_type": "MODIFIED", "file_path": "C:/Users/Public/Documents\\TIBA_BFB401_S24_C1_leen_183424.pdf", "file_size": 1469270, "file_hash": "269b9cbc14dc459127cbc1397345661b"}
+{"timestamp": "2025-01-27T17:28:23.736540", "event_type": "MODIFIED", "file_path": "C:/Users/Public/Documents\\TIBA_BFB401_S24_C1_leen_183424.pdf", "file_size": 1469270, "file_hash": "269b9cbc14dc459127cbc1397345661b"}
