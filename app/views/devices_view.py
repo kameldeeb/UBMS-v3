@@ -41,3 +41,33 @@ def device_management():
         )
     else:
         st.warning("The 'anomaly_score' column does not exist in the device data.")
+
+
+def usb_monitoring():
+    st.title("USB Device Monitoring")
+    data = st.session_state.data_manager.get_all_devices()
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.subheader("Connected USB Devices")
+        if data['connected']:
+            for device in data['connected']:
+                st.json({
+                    "Device ID": device['device_id'],
+                    "Vendor": device['vendor'],
+                    "Connected Since": device['connection_time']
+                })
+        else:
+            st.info("No USB devices connected")
+    
+    with col2:
+        st.subheader("Connection History")
+        history_df = pd.DataFrame(data['history'])
+        if not history_df.empty:
+            st.dataframe(
+                history_df[['device_id', 'connection_time', 'disconnection_time']],
+                height=400
+            )
+        else:
+            st.info("No USB connection history available")

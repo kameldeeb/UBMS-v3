@@ -1,17 +1,25 @@
 # main.py
 import streamlit as st
 from app.components.sidebar import sidebar_navigation
-from app.pages import monitoring, devices, alerts, analysis, profile, settings
+from app.views import alerts_view, analysis_view, devices_view, files_view, profile_view, settings_view, dashboard, usb_view, login_view
 from app.utils.state import init_session_state
 
 # main.py
 PAGES = {
-    "Real-time Monitoring": monitoring.real_time_monitoring,
-    "Device Management": devices.device_management,
-    "Alert System": alerts.alert_system,
-    "Anomaly Analysis": analysis.anomaly_analysis,
-    "User Profile": profile.user_profile,
-    "System Settings": settings.system_settings
+    "Dashboard": dashboard.load_dashboard,
+    "Anomaly Analysis": analysis_view.anomaly_analysis,
+
+    "Device Management": devices_view.device_management,
+    "Alert System": alerts_view.alert_system,
+    
+    "File Monitoring": files_view.real_time_monitoring,
+    "USB Monitoring": usb_view.usb_dashboard,
+    "Login Monitoring": login_view.login_monitoring,
+    # "Network Monitoring": monitoring.network_monitoring,
+    # "Process Monitoring": monitoring.process_monitoring,
+
+    "User Profile": profile_view.user_profile,
+    "System Settings": settings_view.system_settings
 }
 
 def main():

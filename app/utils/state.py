@@ -25,7 +25,12 @@ def init_session_state():
             'virtual': []
         }
 
-
+    # إضافة حالة إدارة بيانات USB
+    if 'usb_data' not in st.session_state:
+        st.session_state.usb_data = {
+            'connected': [],
+            'history': []
+        }
 
     if 'alerts' not in st.session_state:
         st.session_state.alerts = []

@@ -4,7 +4,6 @@ import streamlit as st
 def device_management_page():
     st.header("🖥️ Managed Devices")
     
-    # إضافة جهاز جديد
     with st.expander("➕ Add New Device"):
         device_type = st.selectbox("Device Type", ["Virtual", "Physical"])
         name = st.text_input("Device Name")
@@ -16,5 +15,4 @@ def device_management_page():
             if device_type == "Virtual":
                 add_virtual_device(device_id, name, base_path)
             else:
-                # إضافة منطق للأجهزة الحقيقية
                 pass

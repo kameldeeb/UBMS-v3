@@ -4,35 +4,49 @@ from streamlit_option_menu import option_menu
 def sidebar_navigation():
     with st.sidebar:
         # Add a logo or an icon at the top
-        st.markdown("""
-        <div style="text-align: center; margin-bottom: 20px;">
-            <h3 style="color: white;">UBMS Dashboard</h3>
-        </div>
-        """, unsafe_allow_html=True)
+        # st.markdown("""
+        # <div style="text-align: center; margin-bottom: 20px;">
+        #     <h3 style="color: white;">UBMS Dashboard</h3>
+        # </div>
+        # """, unsafe_allow_html=True)
 
         # Create the menu
         selected = option_menu(
             menu_title=None,
-            options=[
-                "Real-time Monitoring", 
-                "Device Management", 
-                "Alert System",
-                "---",
-                "Anomaly Analysis", 
-                "User Profile", 
-                "---",
-                "System Settings"
+        options = [
+            "Overview",
+            "Anomaly Analysis",
+            "---",                
+            "Device Management", 
+            "Alert System",
+            "---",
+            "File Monitoring", 
+            "USB Monitoring",
+            "Login Monitoring",
+            "Network Monitoring",
+            "Process Monitoring",
+            "---", 
+            "User Profile", 
+            "System Settings"
+        ],
+
+        icons = [
+            "house",          # Overview
+            "graph-up",          # Anomaly Analysis
+            None,  
+            "laptop",              # Device Management
+            "bell",                # Alert System
+            None,  
+            "file-earmark-text",   # File Monitoring
+            "usb-drive",           # USB Monitoring
+            "shield-lock",         # Login Monitoring
+            "wifi",                # Network Monitor
+            "cpu",               # Process Monitor
+            None,  
+            "person-circle",       # User Profile
+            "gear"                 # System Settings
             ],
-            icons=[
-                "graph-up", 
-                "laptop", 
-                "bell",
-                None,  
-                "bar-chart", 
-                "person", 
-                None,  
-                "gear"
-            ],
+
             menu_icon="menu-up",
             default_index=0,
             orientation="vertical",
@@ -50,11 +64,5 @@ def sidebar_navigation():
             }
         )
 
-        # Add copyright/author name at the bottom
-        st.markdown("""
-        <div style="position: fixed; bottom: 20px; left: 10px; width: 100%; text-align: left; color: white; font-size: 12px;">
-            © 2025 All rights reserved.
-        </div>
-        """, unsafe_allow_html=True)
 
         return selected
