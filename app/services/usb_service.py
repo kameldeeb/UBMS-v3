@@ -13,7 +13,7 @@ logging.basicConfig(filename='usb_monitor.log', level=logging.DEBUG)
 
 class USBService:
     def __init__(self, device_id):
-        self.stop_event = Event()  # Ensure this exists
+        self.stop_event = Event()  
         self.device_id = device_id
         self.current_devices = []
         self.mac_address = self._get_mac_address()
