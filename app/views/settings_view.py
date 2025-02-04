@@ -2,7 +2,7 @@ import streamlit as st
 
 
 def system_settings():
-    st.header("👤 User Configuration")
+    st.header("User Configuration")
     
     with st.form("user_profile"):
         col1, col2 = st.columns(2)

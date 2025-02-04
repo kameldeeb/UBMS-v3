@@ -4,7 +4,7 @@ import pandas as pd
 from app.services.login_service import LoginMonitor
 
 def login_monitoring():
-    st.header("🔐 Login Monitoring")
+    st.header("Login Monitoring")
     
     # Initialize service
     if 'login_monitor' not in st.session_state:

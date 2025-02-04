@@ -14,7 +14,7 @@ def sidebar_navigation():
         selected = option_menu(
             menu_title=None,
         options = [
-            "Overview",
+            "Dashboard",
             "Anomaly Analysis",
             "---",                
             "Device Management", 
@@ -26,7 +26,7 @@ def sidebar_navigation():
             "Network Monitoring",
             "Process Monitoring",
             "---", 
-            "User Profile", 
+            # "User Profile", 
             "System Settings"
         ],
 
@@ -43,7 +43,7 @@ def sidebar_navigation():
             "wifi",                # Network Monitor
             "cpu",               # Process Monitor
             None,  
-            "person-circle",       # User Profile
+            # "person-circle",       # User Profile
             "gear"                 # System Settings
             ],
 

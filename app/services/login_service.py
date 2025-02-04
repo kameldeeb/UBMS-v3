@@ -1,108 +1,68 @@
-# app/services/login_service.py
 import sqlite3
 import getpass
-import time
-from datetime import datetime, timedelta
-from threading import Thread, Event
 import uuid
-import hashlib
+import time
+from datetime import datetime
+from threading import Thread, Event  # تأكد من وجود هذا السطر
+import platform
+import subprocess
+from app.services.database.login_database import get_last_event_id, log_event, DB_PATH
 
 class LoginMonitor:
     def __init__(self):
-        self.db_path = "data/database.db"
         self.stop_event = Event()
         self.mac_address = self._get_mac_address()
-        self._init_db()
-        self.last_event_hash = None  # حفظ الـ hash لآخر حدث مسجل
-
-    def _init_db(self):
-        with sqlite3.connect(self.db_path) as conn:
-            conn.execute('''
-                CREATE TABLE IF NOT EXISTS login_attempts (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    mac_address TEXT NOT NULL,
-                    timestamp DATETIME NOT NULL,
-                    username TEXT,
-                    success INTEGER,
-                    source_ip TEXT,
-                    auth_method TEXT,
-                    os_user TEXT,
-                    UNIQUE(mac_address, timestamp, username, success, source_ip, auth_method, os_user)  -- منع التكرار
-                )
-            ''')
-            conn.commit()
+        # تسجيل الحدث مرة واحدة عند بدء المراقبة
+        self.logged = False
 
     def _get_mac_address(self):
         mac = uuid.getnode()
         return ':'.join(("%012X" % mac)[i:i+2] for i in range(0, 12, 2))
 
-    def _get_login_events(self):
+    def _get_login_event(self):
         current_user = getpass.getuser()
-        return [{
-            'timestamp': datetime.now(),
+        event_id = f"{self.mac_address}-{current_user}-{int(datetime.now().timestamp())}"
+        event = {
+            'timestamp': datetime.now().isoformat(),
+            'event_id': event_id,
+            'mac_address': self.mac_address,
+            'event_type': 'login',
             'username': current_user,
+            # يمكنك إضافة قيم أخرى إذا كنت ستستخدمها (مثلاً success, ip, method, os_user)
             'success': 1,
-            'source_ip': '127.0.0.1',
-            'auth_method': 'local',
-            'os_user': current_user
-        }]
-
-    def _generate_event_hash(self, event):
-        """ توليد hash من بيانات الحدث لمنع التكرار """
-        event_string = f"{event['username']}-{event['success']}-{event['source_ip']}-{event['auth_method']}-{event['os_user']}-{event['timestamp']}"
-        return hashlib.sha256(event_string.encode()).hexdigest()
-
-    def _is_duplicate_event(self, event):
-        """ التحقق مما إذا كان الحدث مكررًا """
-        event_hash = self._generate_event_hash(event)
-
-        if event_hash == self.last_event_hash:
-            return True  # حدث مكرر، لا نسجله
-
-        self.last_event_hash = event_hash  # تحديث آخر حدث مسجل
-        return False
+            'ip': 'N/A',
+            'method': 'N/A',
+            'os_user': 'N/A'
+        }
+        return event
 
     def _monitor_logins(self):
-        while not self.stop_event.is_set():
+        # تسجيل الحدث مرة واحدة فقط
+        if not self.logged:
             try:
-                events = self._get_login_events()
-                for event in events:
-                    if not self._is_duplicate_event(event):  # منع التكرار
-                        self._log_event(event)
-                time.sleep(10)
+                event = self._get_login_event()
+                log_event(event)
+                self.logged = True
             except Exception as e:
                 print(f"Monitoring error: {str(e)}")
-
-    def _log_event(self, event):
-        try:
-            with sqlite3.connect(self.db_path) as conn:
-                conn.execute('''
-                    INSERT OR IGNORE INTO login_attempts VALUES (
-                        NULL, ?, ?, ?, ?, ?, ?, ?
-                    )
-                ''', (
-                    self.mac_address,
-                    event['timestamp'].isoformat(),
-                    event['username'],
-                    event['success'],
-                    event['source_ip'],
-                    event['auth_method'],
-                    event['os_user']
-                ))
-                conn.commit()
-        except sqlite3.IntegrityError:
-            pass  # في حالة التكرار، لا يتم الإدراج
+        # يمكنك هنا تنفيذ مهام أخرى إذا لزم الأمر
+        while not self.stop_event.is_set():
+            time.sleep(10)
 
     def start(self):
         self.stop_event.clear()
         Thread(target=self._monitor_logins, daemon=True).start()
 
+    def stop(self):
+        self.stop_event.set()
+
     def get_attempts(self):
-        with sqlite3.connect(self.db_path) as conn:
+        with sqlite3.connect(DB_PATH) as conn:
             cursor = conn.cursor()
-            cursor.execute('''
-                SELECT * FROM login_attempts 
-                WHERE mac_address = ?
-                ORDER BY timestamp DESC
-            ''', (self.mac_address,))
-            return cursor.fetchall()
+            cursor.execute("""
+                SELECT id, mac_address, timestamp, username, success, ip, method, os_user
+                FROM login_attempts
+                ORDER BY id DESC
+            """)
+            attempts = cursor.fetchall()
+        return attempts

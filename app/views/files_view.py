@@ -50,20 +50,16 @@ def select_folder_gui():
         return None
 
 def real_time_monitoring():
-    st.header("🔍 Live Monitoring Panel")
+    st.header("Live Monitoring Panel")
     
-    # Initialize session state with persisted folders
     if 'selected_folders' not in st.session_state:
         st.session_state.selected_folders = load_folders()
     else:
-        # Force reload from file on every page refresh
         st.session_state.selected_folders = load_folders()
     
-    # Initialize folder input value
     if 'folder_input_value' not in st.session_state:
         st.session_state.folder_input_value = ""
 
-    # File monitoring controls
     with st.expander("📁 File Monitoring Configuration", expanded=True):
         with st.form(key="folder_form"):
             cols = st.columns([0.7, 0.1, 0.1])  

@@ -3,7 +3,7 @@ import streamlit as st
 from datetime import datetime
 
 def alert_system():
-    st.header("🚨 Active Alerts")
+    st.header("Active Alerts")
     
     # Alert configuration
     with st.expander("⚙️ Alert Settings"):

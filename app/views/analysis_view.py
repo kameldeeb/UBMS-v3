@@ -1,38 +1,55 @@
+# File: app/views/analysis_view.py
 import streamlit as st
 import pandas as pd
-
+import altair as alt
+from app.utils.anomaly_detection import load_events, detect_anomalies, get_anomaly_summary
 
 def anomaly_analysis():
-    st.header("📈 Behavioral Analysis")
+    """
+    Anomaly Analysis Page:
+    Displays a summary of anomalies with charts and detailed anomaly events.
+    Place this code in: app/views/analysis_view.py
+    """
+    st.header("🚨 Anomaly Analysis")
+    st.markdown("This page shows the results of anomaly analysis using a machine learning model.")
     
-    # Placeholder anomaly data
-    anomaly_data = pd.DataFrame({
-        'Timestamp': pd.date_range(start='2024-01-01', periods=5, freq='D'),
-        'Anomaly Score': [35, 42, 28, 55, 38],
-        'Event Type': ['Login', 'File Access', 'USB', 'Network', 'Process']
-    })
+    # Load event data from the database
+    df = load_events()
+    if df.empty:
+        st.info("No event data available for analysis.")
+        return
     
-    # Tabs for different views
-    tab1, tab2, tab3, tab4 = st.tabs(["📈 Trends", "📋 Detailed Logs","🧠 AI Insights", "Suricata"])
+    # Apply the anomaly detection model to the data
+    df_anomaly = detect_anomalies(df)
     
-    with tab1:
-        st.subheader("Anomaly Trend Analysis")
-        st.area_chart(anomaly_data.set_index('Timestamp')['Anomaly Score'])
+    # Display anomaly summary for each device
+    st.subheader("Anomaly Summary per Device")
+    summary = get_anomaly_summary(df_anomaly)
+    st.dataframe(summary)
     
-    with tab2:
-        st.subheader("Detailed Events")
-        st.dataframe(anomaly_data)
+    # Plot anomalies over time
+    st.subheader("Anomalies Over Time")
+    # Convert the 'timestamp' column to datetime
+    df_anomaly['timestamp'] = pd.to_datetime(df_anomaly['timestamp'], errors='coerce')
     
-    with tab3:
-        st.subheader("Machine Learning Insights")
-        st.write("""
-        **Model Interpretation:**
-        - Top risk factors:
-          1. Multiple failed login attempts
-          2. Unusual file access patterns
-          3. High network throughput
-        """)
-        st.progress(0.78)
-    with tab4:
-        st.subheader("Detailed Suricata")
-        st.dataframe(anomaly_data)
+    # Filter the anomalies and group them by date to count occurrences
+    anomalies_time = (
+        df_anomaly[df_anomaly['anomaly'] == -1]
+        .groupby(df_anomaly['timestamp'].dt.date)
+        .size()
+        .reset_index(name="count")
+    )
+    
+    if not anomalies_time.empty:
+        chart = alt.Chart(anomalies_time).mark_line(point=True).encode(
+            x=alt.X("timestamp:T", title="Date"),
+            y=alt.Y("count:Q", title="Number of Anomalies")
+        ).properties(width=600, height=300)
+        st.altair_chart(chart, use_container_width=True)
+    else:
+        st.info("No time anomalies detected.")
+    
+    # Display detailed anomaly event information
+    st.subheader("Detailed Anomaly Events")
+    anomalies = df_anomaly[df_anomaly['anomaly'] == -1]
+    st.dataframe(anomalies)
