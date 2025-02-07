@@ -18,3 +18,9 @@
 2025-02-07 15:03:18,210 - INFO - USB disconnected: {'device': 'G:\\', 'mountpoint': 'G:\\', 'fstype': '', 'total_size': 0}
 2025-02-07 15:03:58,305 - INFO - USB connected: {'device': 'G:\\', 'mountpoint': 'G:\\', 'fstype': 'exFAT', 'total_size': 125155803136}
 2025-02-07 15:04:13,349 - INFO - USB disconnected: {'device': 'G:\\', 'mountpoint': 'G:\\', 'fstype': 'exFAT', 'total_size': 125155803136}
+2025-02-07 15:30:07,846 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-07 15:30:07,955 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-07 15:30:07,958 - DEBUG - interactive is False
+2025-02-07 15:30:07,959 - DEBUG - platform is win32
+2025-02-07 15:30:08,077 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-07 15:30:08,096 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
