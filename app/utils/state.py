@@ -1,16 +1,16 @@
-# app/utils/state.py
+# File: app/utils/state.py
 import streamlit as st
 import os
 import json
-from app.monitors.file_monitor import FileMonitor
+from app.services.file_service import FileMonitor
 
 
 def init_session_state():
     if 'selected_folders' not in st.session_state:
-        st.session_state.selected_folders = []  # تهيئة قائمة المجلدات
+        st.session_state.selected_folders = []  
     
     if 'file_monitoring' not in st.session_state:
-        st.session_state.file_monitoring = False  # تهيئة حالة المراقبة
+        st.session_state.file_monitoring = False  
 
     if 'devices' not in st.session_state:
         st.session_state.devices = {
@@ -25,7 +25,6 @@ def init_session_state():
             'virtual': []
         }
 
-    # إضافة حالة إدارة بيانات USB
     if 'usb_data' not in st.session_state:
         st.session_state.usb_data = {
             'connected': [],

@@ -10,7 +10,6 @@ def sidebar_navigation():
         # </div>
         # """, unsafe_allow_html=True)
 
-        # Create the menu
         selected = option_menu(
             menu_title=None,
         options = [
@@ -26,13 +25,12 @@ def sidebar_navigation():
             "Network Monitoring",
             "Process Monitoring",
             "---", 
-            # "User Profile", 
             "System Settings"
         ],
 
         icons = [
-            "house",          # Overview
-            "graph-up",          # Anomaly Analysis
+            "house",               # Overview
+            "graph-up",            # Anomaly Analysis
             None,  
             "laptop",              # Device Management
             "bell",                # Alert System
@@ -41,9 +39,8 @@ def sidebar_navigation():
             "usb-drive",           # USB Monitoring
             "shield-lock",         # Login Monitoring
             "wifi",                # Network Monitor
-            "cpu",               # Process Monitor
+            "cpu",                 # Process Monitor
             None,  
-            # "person-circle",       # User Profile
             "gear"                 # System Settings
             ],
 

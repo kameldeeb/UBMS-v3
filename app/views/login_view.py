@@ -1,29 +1,28 @@
-# app/views/login_view.py
+# File: app/views/login_view.py
 import streamlit as st
 import pandas as pd
+import time
 from app.services.login_service import LoginMonitor
 
 def login_monitoring():
     st.header("Login Monitoring")
     
-    # Initialize service
-    if 'login_monitor' not in st.session_state:
-        st.session_state.login_monitor = LoginMonitor()
-        st.session_state.login_monitor.start()
+    if 'login_service' not in st.session_state:
+        st.session_state.login_service = LoginMonitor()
+        st.session_state.login_service.start()
 
-    # Real-time stats
     col1, col2, col3 = st.columns(3)
-    attempts = st.session_state.login_monitor.get_attempts()
+    attempts = st.session_state.login_service.get_attempts()
     
     with col1:
         st.metric("Total Attempts", len(attempts))
     
     with col2:
-        success = len([a for a in attempts if a[4] == 1])
+        success = len([a for a in attempts if a.get("success") == 1])
         st.metric("Successful Logins", success)
     
     with col3:
-        failed = len([a for a in attempts if a[4] == 0])
+        failed = len([a for a in attempts if a.get("success") == 0])
         st.metric("Failed Attempts", failed)
 
     # Filters
@@ -43,25 +42,32 @@ def login_monitoring():
                 []
             )
 
-    # Display table
     st.subheader("🕒 Login Attempt History")
-    
+    time.sleep(1)
     if not attempts:
         st.info("No login attempts recorded")
         return
 
-    df = pd.DataFrame(attempts, columns=[
-        'ID', 'MAC', 'Timestamp', 'Username',
-        'Success', 'IP', 'Method', 'OS User'
-    ])
-
-    # Apply filters
+    df = pd.DataFrame(attempts)
+    
+    df.rename(columns={
+        "id": "ID",
+        "device_id": "Device ID",
+        "event_id": "Event ID",
+        "event_type": "Event Type",
+        "username": "Username",
+        "success": "Success",
+        "ip": "IP",
+        "method": "Method",
+        "os_user": "OS User",
+        "timestamp": "Timestamp"
+    }, inplace=True)
+    
     if success_filter == "Success":
         df = df[df['Success'] == 1]
     elif success_filter == "Failure":
         df = df[df['Success'] == 0]
 
-    # Enhanced display
     st.dataframe(
         df,
         column_config={
@@ -78,6 +84,8 @@ def login_monitoring():
         height=500
     )
 
-    # Security alerts
     if failed > 3:
         st.error(f"⚠️ Multiple failed login attempts detected ({failed})")
+
+if __name__ == "__main__":
+    login_monitoring()

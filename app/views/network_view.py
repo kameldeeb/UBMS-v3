@@ -1,4 +1,4 @@
-# app/views/network_view.py
+# File: app/views/network_view.py
 import streamlit as st
 import netifaces
 from scapy.all import AsyncSniffer, IP, TCP, DNS, UDP, sniff
@@ -67,7 +67,7 @@ def show_configuration_panel():
         st.session_state.anomaly_rules['data_threshold'] = st.number_input(
             "Data Transfer Alert Threshold (KB)",
             100, 10000, 5000
-        ) * 1024  # Convert to bytes
+        ) * 1024 
 
 # ----------- Packet Processing & Anomaly Detection -----------
 def process_packet(packet: Packet):
@@ -119,7 +119,7 @@ def process_packet(packet: Packet):
     st.session_state.packet_queue.put(pkt_info)
 
 def check_port_scan(pkt):
-    if 'S' in pkt['flags']:  # SYN Scan Detection
+    if 'S' in pkt['flags']:  
         key = f"syn_{pkt['src']}"
         st.session_state.traffic_stats[key] += 1
         
@@ -137,7 +137,6 @@ def check_dns_threats(query):
 def show_traffic_dashboard():
     col1, col2, col3 = st.columns(3)
     
-    # Traffic Distribution
     with col1:
         st.subheader("🌐 Traffic Flow")
         traffic_data = {
@@ -150,23 +149,19 @@ def show_traffic_dashboard():
         fig = px.pie(traffic_data, names='Direction', values='Bytes')
         st.plotly_chart(fig, use_container_width=True)
     
-    # Protocol Distribution
     with col2:
         st.subheader("📊 Protocols")
         proto_counts = defaultdict(int)
         for pkt in st.session_state.packets:
             proto_counts[pkt['proto']] += 1
-        # Create DataFrame for protocol counts
         proto_df = pd.DataFrame({
             'Protocol': list(proto_counts.keys()),
             'Count': list(proto_counts.values())
         })
 
-        # Plot bar chart using the DataFrame
         fig = px.bar(proto_df, x='Protocol', y='Count', labels={'x': 'Protocol', 'y': 'Count'})
         st.plotly_chart(fig, use_container_width=True)
     
-    # Top Talkers
     with col3:
         st.subheader("🔝 Top Talkers")
         talkers = defaultdict(int)
@@ -181,7 +176,6 @@ def network_monitoring():
     init_session_state()
     show_configuration_panel()
     
-    # Control Panel
     with st.container():
         col1, col2, col3 = st.columns([2,1,1])
         with col1:

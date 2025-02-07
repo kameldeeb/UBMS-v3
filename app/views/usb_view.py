@@ -1,78 +1,77 @@
-# app/views/usb_view.py
+# File: app/views/usb_view.py
 import streamlit as st
 import pandas as pd
 import uuid
+import json
+from streamlit_autorefresh import st_autorefresh
 from app.services.usb_service import USBService
 
-import time
+def bytes_to_human(n):
+    symbols = ('B', 'KB', 'MB', 'GB', 'TB', 'PB')
+    prefix = {}
+    for i, s in enumerate(symbols):
+        prefix[s] = 1 << (i * 10)
+    for s in reversed(symbols):
+        if n >= prefix[s]:
+            value = float(n) / prefix[s]
+            return f"{value:.2f} {s}"
+    return f"{n} B"
 
 def usb_dashboard():
-    st.header("USB Monitoring")
+    st.title("USB Monitoring Dashboard")
 
     if 'usb_service' not in st.session_state:
-        st.session_state.usb_service = USBService(device_id=str(uuid.getnode()))
+        device_identifier = str(uuid.getnode())
+        st.session_state.usb_service = USBService(device_identifier=device_identifier)
         st.session_state.usb_service.start_monitoring()
-    
+
     usb_service = st.session_state.usb_service
-    
-    connected_devices = usb_service.get_connected_devices()
 
-    status_cols = st.columns(3)
-    status_cols[0].markdown("**Monitoring Status:** 🟢 Active")
-    status_cols[1].markdown(f"**MAC Address:** `{usb_service.mac_address}`")
-    status_cols[2].button("Refresh Devices", on_click=lambda: st.rerun())
-
+    st_autorefresh(interval=5000, key="usb_refresh")
 
     st.subheader("Connected USB Devices")
-    
-    if connected_devices:
-        df = pd.DataFrame(connected_devices)
-        st.table(df)  
-    else:
-        st.warning("⚠️ No USB devices detected")
+    connected_devices = usb_service.get_connected_devices()
 
-    
-    # Event history section
-    st.subheader("Historical Events")
-    events = usb_service.get_events()
-    
-    if not events:
-        st.info("No events recorded yet")
+    if connected_devices:
+        for device in connected_devices:
+            device_name = device.get("device", "Unknown")
+            mountpoint = device.get("mountpoint", "Unknown")
+            fstype = device.get("fstype", "Unknown")
+            total_size = device.get("total_size", 0)
+            size_str = bytes_to_human(total_size)
+
+            with st.expander(f"Device: {device_name} | Mount: {mountpoint}", expanded=True):
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.markdown(f"**Device:** `{device_name}`")
+                    st.markdown(f"**Mountpoint:** `{mountpoint}`")
+                with col2:
+                    st.markdown(f"**File System:** `{fstype}`")
+                    st.markdown(f"**Total Size:** `{size_str}`")
+                st.markdown("---")
     else:
-        df = pd.DataFrame(events, columns=[
-            'ID', 'MAC Address', 'Timestamp', 'Type', 
-            'Device', 'Mountpoint', 'Filesystem',
-            'Vendor ID', 'Product ID', 'Serial Number', 
-            'Size (Bytes)'
-        ])
-        
-        # Convert and clean data
-        df['Timestamp'] = pd.to_datetime(df['Timestamp'])
-        df['Size (GB)'] = df['Size (Bytes)'].apply(lambda x: x/1e9 if x > 0 else 0)
-        max_size = df['Size (GB)'].max() or 1  # Prevent division by zero
-        
-        # Configure dataframe display
-        st.dataframe(
-            df,
-            column_config={
-                'Timestamp': st.column_config.DatetimeColumn(
-                    'Time',
-                    format="YYYY-MM-DD HH:mm:ss"
-                ),
-                'Type': st.column_config.SelectboxColumn(
-                    "Event Type",
-                    options=["connected", "disconnected"],
-                    required=True
-                ),
-                'Size (GB)': st.column_config.ProgressColumn(
-                    "Storage Size",
-                    help="Device capacity in gigabytes",
-                    format="%.2f GB",
-                    min_value=0,
-                    max_value=max_size
-                )
-            },
-            use_container_width=True,
-            hide_index=True,
-            height=500
-        )
+        st.info("No USB devices currently connected.")
+
+    st.subheader("Recent USB Events")
+    events = usb_service.get_recent_events(limit=100)
+    if events:
+        event_rows = []
+        for event in events:
+            details = json.loads(event['details'])
+            row = {
+                "ID": event["id"],
+                "Event Type": event["event_type"],
+                "Timestamp": event["timestamp"],
+                "Device": details.get("device", "Unknown"),
+                "Mountpoint": details.get("mountpoint", "Unknown"),
+                "File System": details.get("fstype", "Unknown"),
+                "Total Size": bytes_to_human(details.get("total_size", 0))
+            }
+            event_rows.append(row)
+        df_events = pd.DataFrame(event_rows)
+        st.dataframe(df_events)
+    else:
+        st.info("No USB events recorded yet.")
+
+if __name__ == "__main__":
+    usb_dashboard()

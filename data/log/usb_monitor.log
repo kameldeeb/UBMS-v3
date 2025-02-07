@@ -1,0 +1,20 @@
+2025-02-06 18:16:40,076 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-06 18:16:40,083 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-06 18:16:40,086 - DEBUG - interactive is False
+2025-02-06 18:16:40,087 - DEBUG - platform is win32
+2025-02-06 18:16:40,187 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-06 18:16:40,191 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-07 15:02:38,166 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-07 15:02:38,304 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-07 15:02:38,308 - DEBUG - interactive is False
+2025-02-07 15:02:38,308 - DEBUG - platform is win32
+2025-02-07 15:02:38,442 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-07 15:02:38,463 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-07 15:02:58,158 - ERROR - Error getting disk usage for G:\: [WinError 21] The device is not ready: 'G:\\'
+2025-02-07 15:02:58,159 - INFO - USB connected: {'device': 'G:\\', 'mountpoint': 'G:\\', 'fstype': '', 'total_size': 0}
+2025-02-07 15:03:03,180 - ERROR - Error getting disk usage for G:\: [WinError 21] The device is not ready: 'G:\\'
+2025-02-07 15:03:08,187 - ERROR - Error getting disk usage for G:\: [WinError 21] The device is not ready: 'G:\\'
+2025-02-07 15:03:13,196 - ERROR - Error getting disk usage for G:\: [WinError 21] The device is not ready: 'G:\\'
+2025-02-07 15:03:18,210 - INFO - USB disconnected: {'device': 'G:\\', 'mountpoint': 'G:\\', 'fstype': '', 'total_size': 0}
+2025-02-07 15:03:58,305 - INFO - USB connected: {'device': 'G:\\', 'mountpoint': 'G:\\', 'fstype': 'exFAT', 'total_size': 125155803136}
+2025-02-07 15:04:13,349 - INFO - USB disconnected: {'device': 'G:\\', 'mountpoint': 'G:\\', 'fstype': 'exFAT', 'total_size': 125155803136}

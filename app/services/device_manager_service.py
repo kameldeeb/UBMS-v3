@@ -1,9 +1,8 @@
 # File: app/services/device_manager_service.py
 import uuid
 from datetime import datetime
-from app.services.database.db_manager import get_connection, initialize_db
+from app.services.db_manager import get_connection
 
-initialize_db()
 
 class DeviceManager:
     def __init__(self):

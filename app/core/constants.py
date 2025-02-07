@@ -1,57 +1,48 @@
-# -*- coding: utf-8 -*-
-"""
-الثوابت الأساسية للنظام
-"""
-
 from typing import Dict, Final
 
-# ألوان خطورة التنبيهات
 SEVERITY_COLORS: Final[Dict[str, str]] = {
-    "CRITICAL": "#FF0000",    # أحمر
-    "HIGH": "#FF4B4B",        # أحمر فاتح
-    "MEDIUM": "#FFA500",      # برتقالي
-    "LOW": "#FFFF00",         # أصفر
-    "INFO": "#0066CC",        # أزرق
-    "DEFAULT": "#666666"      # رمادي
+    "CRITICAL": "#FF0000",    # Red
+    "HIGH": "#FF4B4B",        # Light Red
+    "MEDIUM": "#FFA500",      # Orange
+    "LOW": "#FFFF00",         # Yellow
+    "INFO": "#0066CC",        # Blue
+    "DEFAULT": "#666666"      # Gray
 }
 
-# أنواع الأحداث المسموحة
 EVENT_TYPES: Final[Dict[str, str]] = {
-    "LOGIN": "تسجيل الدخول",
-    "USB": "جهاز USB",
-    "NETWORK": "شبكة",
-    "FILE": "ملف",
-    "PROCESS": "عملية",
-    "SYSTEM": "نظام"
+    "LOGIN": "Login",
+    "USB": "USB Device",
+    "NETWORK": "Network",
+    "FILE": "File",
+    "PROCESS": "Process",
+    "SYSTEM": "System"
 }
 
-# إعدادات التحديث التلقائي
+# Auto-refresh settings
 REFRESH_INTERVALS: Final[Dict[str, int]] = {
-    "FAST": 15,     # ثانية
+    "FAST": 15,     # Seconds
     "NORMAL": 30,
     "SLOW": 60
 }
 
-# ثوابت التحليل
+# Analysis constants
 ANALYSIS_CONSTANTS: Final[Dict[str, float]] = {
-    "ANOMALY_THRESHOLD": 0.85,  # حد الشذوذ
-    "MAX_DATA_POINTS": 1000     # الحد الأقصى للبيانات
+    "ANOMALY_THRESHOLD": 0.85,  # Anomaly Threshold
+    "MAX_DATA_POINTS": 1000     # Maximum Data Points
 }
 
-
-# ألوان لاستخدامات عامة
+# General-purpose colors
 COLOR_PALETTE: Final[Dict[str, str]] = {
-    "PRIMARY": "#306998",    # أزرق بايثون
-    "SECONDARY": "#FFD43B",  # أصفر بايثون
-    "SUCCESS": "#4CAF50",    # أخضر
-    "WARNING": "#FFC107",    # أصفر تحذير
-    "DANGER": "#DC3545"      # أحمر خطر
+    "PRIMARY": "#306998",    # Python Blue
+    "SECONDARY": "#FFD43B",  # Python Yellow
+    "SUCCESS": "#4CAF50",    # Green
+    "WARNING": "#FFC107",    # Warning Yellow
+    "DANGER": "#DC3545"      # Danger Red
 }
 
-# إعدادات الرسوم البيانية
+# Chart settings
 CHART_CONFIG: Final[Dict[str, str]] = {
     "BG_COLOR": "#FFFFFF",
     "FONT": "Arial",
     "AXIS_COLOR": "#666666"
 }
-

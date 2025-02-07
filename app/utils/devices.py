@@ -1,4 +1,4 @@
-# pages/devices.py
+# File: app/utils/devices.py
 import streamlit as st
 
 def device_management_page():

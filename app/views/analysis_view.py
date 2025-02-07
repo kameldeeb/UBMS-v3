@@ -2,37 +2,26 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
+import json
 from app.utils.anomaly_detection import load_events, detect_anomalies, get_anomaly_summary
 
 def anomaly_analysis():
-    """
-    Anomaly Analysis Page:
-    Displays a summary of anomalies with charts and detailed anomaly events.
-    Place this code in: app/views/analysis_view.py
-    """
     st.header("🚨 Anomaly Analysis")
-    st.markdown("This page shows the results of anomaly analysis using a machine learning model.")
+    st.markdown("This page shows the results of anomaly analysis using an Isolation Forest model for anomaly detection.")
     
-    # Load event data from the database
     df = load_events()
     if df.empty:
         st.info("No event data available for analysis.")
         return
     
-    # Apply the anomaly detection model to the data
     df_anomaly = detect_anomalies(df)
     
-    # Display anomaly summary for each device
     st.subheader("Anomaly Summary per Device")
     summary = get_anomaly_summary(df_anomaly)
     st.dataframe(summary)
     
-    # Plot anomalies over time
     st.subheader("Anomalies Over Time")
-    # Convert the 'timestamp' column to datetime
     df_anomaly['timestamp'] = pd.to_datetime(df_anomaly['timestamp'], errors='coerce')
-    
-    # Filter the anomalies and group them by date to count occurrences
     anomalies_time = (
         df_anomaly[df_anomaly['anomaly'] == -1]
         .groupby(df_anomaly['timestamp'].dt.date)
@@ -49,7 +38,21 @@ def anomaly_analysis():
     else:
         st.info("No time anomalies detected.")
     
-    # Display detailed anomaly event information
     st.subheader("Detailed Anomaly Events")
-    anomalies = df_anomaly[df_anomaly['anomaly'] == -1]
+    anomalies = df_anomaly[df_anomaly['anomaly'] == -1].copy()
+    
+    if 'details' in anomalies.columns:
+        try:
+            details_expanded = anomalies['details'].apply(lambda x: json.loads(x) if isinstance(x, str) else {})
+            details_df = pd.json_normalize(details_expanded)
+            duplicate_cols = set(anomalies.columns).intersection(details_df.columns)
+            details_df = details_df.rename(columns={col: f"detail_{col}" for col in duplicate_cols})
+            anomalies = anomalies.drop(columns=['details']).reset_index(drop=True)
+            anomalies = pd.concat([anomalies, details_df], axis=1)
+        except Exception as e:
+            st.error(f"Error expanding details column: {e}")
+    
     st.dataframe(anomalies)
+
+if __name__ == "__main__":
+    anomaly_analysis()

@@ -1,4 +1,4 @@
-# app/monitors/device_monitor.py
+# app/services/device_monitor_services.py
 import time
 import json
 from watchdog.observers import Observer

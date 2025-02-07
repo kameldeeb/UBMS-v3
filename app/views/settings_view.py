@@ -1,5 +1,5 @@
+# File: app/views/settings_view.py
 import streamlit as st
-
 
 def system_settings():
     st.header("User Configuration")
