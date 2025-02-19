@@ -28,7 +28,7 @@ def preprocess_events(df):
     features = df[['event_category', 'event_type', 'timestamp_numeric']].fillna("Unknown")
     
     from sklearn.preprocessing import OneHotEncoder
-    encoder = OneHotEncoder(sparse=False)
+    encoder = OneHotEncoder(sparse_output=False)
     categorical_data = features[['event_category', 'event_type']]
     onehot = encoder.fit_transform(categorical_data)
     

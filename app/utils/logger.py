@@ -1,5 +1,6 @@
 # app/utils/logger.py
 import json
+import streamlit as st
 from datetime import datetime
 
 def log_alert(device_id, message, score):

@@ -6,14 +6,15 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 from pathlib import Path
+from streamlit_autorefresh import st_autorefresh
 from app.services.file_service import FileMonitor, get_recent_file_events
 from threading import Thread
 
-CONFIG_DIR = Path("config")
-FOLDERS_CONFIG = CONFIG_DIR / "selected_folders.json"
+DATA_DIR = Path("data")
+FOLDERS_CONFIG = DATA_DIR / "selected_folders.json"
 
 def ensure_config():
-    CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 def load_folders():
     try:
@@ -48,7 +49,7 @@ def select_folder_gui():
         return None
 
 def real_time_monitoring():
-    st.header("File Monitoring Panel")
+    st.header("File Monitoring")
     
     if 'selected_folders' not in st.session_state:
         st.session_state.selected_folders = load_folders()
@@ -108,8 +109,22 @@ def real_time_monitoring():
                     st.warning("Please enter a folder path")
 
         st.subheader("📂 Active Monitoring Folders")
+        # Validate active monitoring folders: remove any folder that no longer exists
+        valid_folders = []
+        removed_folders = []
+        for folder in st.session_state.selected_folders:
+            if os.path.isdir(folder):
+                valid_folders.append(folder)
+            else:
+                removed_folders.append(folder)
+
+        if removed_folders:
+            st.warning(f"Removed invalid folders: {', '.join(removed_folders)}")
+            st.session_state.selected_folders = valid_folders
+            save_folders(valid_folders)
+            
         if not st.session_state.selected_folders:
-            st.info("No folders being monitored")
+            st.info("No folders being monitored.  Please add a folder for monitoring.")
         else:
             for idx, folder in enumerate(st.session_state.selected_folders):
                 cols = st.columns([0.8, 0.1])
@@ -137,48 +152,50 @@ def real_time_monitoring():
         with status_cols[1]:
             if st.session_state.get('file_monitoring'):
                 if st.button("⏹️ Stop Monitoring", 
-                           type="primary", 
-                           use_container_width=True,
-                           help="Stop all monitoring activities"):
+                             type="primary", 
+                             use_container_width=True,
+                             help="Stop all monitoring activities"):
                     st.session_state.file_monitor.stop()
                     st.session_state.file_monitoring = False
                     st.success("Monitoring stopped successfully!")
             else:
-                if st.button("🚀 Start Monitoring", 
-                            type="primary", 
-                            use_container_width=True,
-                            help="Start monitoring selected folders"):
-                    if st.session_state.selected_folders:
-                        device_id = 0  
-                        st.session_state.file_monitor = FileMonitor(
-                            folders_to_watch=st.session_state.selected_folders,
-                            output_path="data/real_devices",
-                            device_id=device_id
-                        )
-                        monitor_thread = Thread(target=st.session_state.file_monitor.start)
-                        monitor_thread.daemon = True
-                        monitor_thread.start()
-                        st.session_state.file_monitoring = True
-                        st.success("Monitoring started successfully!")
-                    else:
-                        st.error("Please add folders to monitor first")
+                if st.session_state.selected_folders:
+                    device_id = 0  
+                    st.session_state.file_monitor = FileMonitor(
+                        folders_to_watch=st.session_state.selected_folders,
+                        output_path="data/real_devices",
+                        device_id=device_id
+                    )
+                    monitor_thread = Thread(target=st.session_state.file_monitor.start)
+                    monitor_thread.daemon = True
+                    monitor_thread.start()
+                    st.session_state.file_monitoring = True
+                    st.success("Monitoring started automatically!")
+                else:
+                    st.error("Please add folders to monitor first")
+
 
     st.markdown("---")
+    st_autorefresh(interval=5000, key="table_autorefresh")
     st.subheader("🕒 Recent File Changes")
     try:
         file_events = get_recent_file_events(limit=15)
         if file_events:
             df = pd.DataFrame(file_events)
-            df = df[['timestamp', 'event_type', 'file_path', 'file_size']]
-            df['timestamp'] = pd.to_datetime(df['timestamp']).dt.strftime('%Y-%m-%d %H:%M:%S')
-            df['file_size'] = df['file_size'].apply(
-                lambda x: f"{round(x/1024, 2)} KB" if x else "N/A"
-            )
+            df = df[['timestamp', 'event_type', 'file_path', 'file_size']]            
+            df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
+            df = df.dropna(subset=['timestamp'])
+            df = df.sort_values(by='timestamp', ascending=False)
+            df = df.head(15)
+            df = df.drop_duplicates(subset=['event_type', 'file_path'], keep='first')
+            df['timestamp'] = df['timestamp'].dt.strftime('%Y-%m-%d %H:%M:%S')
+            df['file_size'] = df['file_size'].apply(lambda x: f"{round(x/1024, 2)} KB" if pd.notna(x) and x > 0 else "N/A")
+
             st.dataframe(
                 df.style.applymap(
-                    lambda x: "color: #4CAF50" if x == "created" else 
-                              "color: #f44336" if x == "deleted" else 
-                              "color: #FFC107",
+                    lambda x: "color: #4CAF50" if x.upper() == "CREATED" else 
+                              "color: #f44336" if x.upper() == "DELETED" else 
+                              "color: #FFC107" if x.upper() == "MODIFIED" else "",
                     subset=['event_type']
                 ),
                 column_config={

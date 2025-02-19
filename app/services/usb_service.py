@@ -9,6 +9,8 @@ from datetime import datetime
 from threading import Thread, Event
 from pathlib import Path
 from app.services.db_manager import get_connection, init_db, register_device  
+from app.utils.device_utils import get_mac_address
+
 
 log_dir = Path("data/log")
 log_dir.mkdir(parents=True, exist_ok=True)
@@ -41,17 +43,11 @@ def get_drive_size(mountpoint):
 
 class USBService:
     def __init__(self, device_identifier):
-
         self.stop_event = Event()
         self.device_identifier = device_identifier
         self.device_id = register_device(device_identifier, name="USB Monitoring Device", device_type="USB")
         self.current_devices = {}
-        self.mac_address = self._get_mac_address()
-
-    def _get_mac_address(self):
-        mac = uuid.getnode()
-        return ':'.join(("%012X" % mac)[i:i+2] for i in range(0, 12, 2))
-
+        self.mac_address = device_identifier  
     def _detect_usb_devices(self):
 
         devices = {}

@@ -1,25 +1,43 @@
 # File: app/services/file_service.py
 import json
 import hashlib
+import os
 from pathlib import Path
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from datetime import datetime
 from app.services.db_manager import get_connection
+import threading
 
 class FileChangeHandler(FileSystemEventHandler):
-    def __init__(self, device_id):
+    def __init__(self, device_id, debounce_interval=3.0):
+        """
+        debounce_interval: time in seconds to ignore duplicate events for the same file and event type.
+        """
         super().__init__()
         self.device_id = device_id  
+        self.debounce_interval = debounce_interval
+        self.last_events = {}
+        self.lock = threading.Lock()
+
     def _record_event(self, event_type, src_path):
         try:
-            file_path = str(src_path)
+            file_path = os.path.normpath(str(src_path))
+            now = datetime.now().replace(microsecond=0)
+            key = (event_type, file_path)
+            
+            with self.lock:
+                last_time = self.last_events.get(key)
+                if last_time and (now - last_time).total_seconds() < self.debounce_interval:
+                    return
+                self.last_events[key] = now
+
             file_obj = Path(src_path)
             file_size = file_obj.stat().st_size if file_obj.is_file() else 0
             file_hash = self._calculate_file_hash(src_path) if file_obj.is_file() else None
 
             event_details = {
-                "timestamp": datetime.now().isoformat(),
+                "timestamp": now.isoformat(),
                 "event_type": event_type,
                 "file_path": file_path,
                 "file_size": file_size,
@@ -34,7 +52,7 @@ class FileChangeHandler(FileSystemEventHandler):
                 """, (
                     self.device_id,
                     event_type,
-                    datetime.now().isoformat(),
+                    now.isoformat(),
                     json.dumps(event_details)
                 ))
                 conn.commit()
@@ -64,7 +82,6 @@ class FileChangeHandler(FileSystemEventHandler):
 
 class FileMonitor:
     def __init__(self, folders_to_watch, device_id, output_path=None):
-
         self.observer = Observer()
         self.device_id = device_id
         self.folders = folders_to_watch
@@ -87,7 +104,6 @@ class FileMonitor:
 
 
 def get_recent_file_events(limit=15):
-
     try:
         with get_connection() as conn:
             cursor = conn.cursor()

@@ -1,14 +1,15 @@
-# File: app/views/analysis_view.py
 import streamlit as st
 import pandas as pd
 import altair as alt
 import json
 from app.utils.anomaly_detection import load_events, detect_anomalies, get_anomaly_summary
+from app.services.db_manager import get_connection
 
 def anomaly_analysis():
     st.header("🚨 Anomaly Analysis")
-    st.markdown("This page shows the results of anomaly analysis using an Isolation Forest model for anomaly detection.")
+    st.markdown("This page shows the results of anomaly analysis using an Isolation Forest model for anomaly detection on events.")
     
+    # --- Anomaly Analysis on Events ---
     df = load_events()
     if df.empty:
         st.info("No event data available for analysis.")
@@ -53,6 +54,36 @@ def anomaly_analysis():
             st.error(f"Error expanding details column: {e}")
     
     st.dataframe(anomalies)
+    
+    st.markdown("---")
+    
+    # --- Network Monitoring Overview (from network_logs) ---
+    st.subheader("🌐 Network Logs Overview")
+    try:
+        with get_connection() as conn:
+            df_network = pd.read_sql_query("SELECT * FROM network_logs", conn)
+    except Exception as e:
+        st.error(f"Error loading network logs: {e}")
+        df_network = pd.DataFrame()
+    
+    if df_network.empty:
+        st.info("No network log data available.")
+    else:
+        total_logs = df_network.shape[0]
+        total_usage = df_network['data_usage'].sum()
+        st.metric("Total Network Logs", total_logs)
+        st.metric("Total Data Usage (bytes)", f"{total_usage:,}")
+        
+        df_network['start_time'] = pd.to_datetime(df_network['start_time'], errors='coerce')
+        usage_over_time = (
+            df_network.groupby(df_network['start_time'].dt.date)['data_usage']
+            .sum().reset_index().rename(columns={'start_time': 'Date', 'data_usage': 'Total Data Usage'})
+        )
+        chart_network = alt.Chart(usage_over_time).mark_line(point=True).encode(
+            x=alt.X("Date:T", title="Date"),
+            y=alt.Y("Total Data Usage:Q", title="Data Usage (bytes)")
+        ).properties(width=600, height=300)
+        st.altair_chart(chart_network, use_container_width=True)
 
 if __name__ == "__main__":
     anomaly_analysis()

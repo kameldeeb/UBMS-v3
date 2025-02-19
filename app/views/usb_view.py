@@ -1,10 +1,12 @@
 # File: app/views/usb_view.py
 import streamlit as st
 import pandas as pd
-import uuid
 import json
 from streamlit_autorefresh import st_autorefresh
 from app.services.usb_service import USBService
+from app.utils.device_utils import get_mac_address
+import uuid
+
 
 def bytes_to_human(n):
     symbols = ('B', 'KB', 'MB', 'GB', 'TB', 'PB')
@@ -17,18 +19,27 @@ def bytes_to_human(n):
             return f"{value:.2f} {s}"
     return f"{n} B"
 
-def usb_dashboard():
-    st.title("USB Monitoring Dashboard")
 
+def normalize_device_identifier():
+    mac_address = get_mac_address()
+    try:
+        return int(mac_address.replace(":", ""), 16) 
+    except ValueError:
+        return uuid.getnode() 
+
+
+def usb_dashboard():
+    st.title("USB Monitoring")
+    
     if 'usb_service' not in st.session_state:
-        device_identifier = str(uuid.getnode())
+        device_identifier = normalize_device_identifier()
         st.session_state.usb_service = USBService(device_identifier=device_identifier)
         st.session_state.usb_service.start_monitoring()
 
     usb_service = st.session_state.usb_service
-
+    
     st_autorefresh(interval=5000, key="usb_refresh")
-
+    
     st.subheader("Connected USB Devices")
     connected_devices = usb_service.get_connected_devices()
 
@@ -72,6 +83,7 @@ def usb_dashboard():
         st.dataframe(df_events)
     else:
         st.info("No USB events recorded yet.")
+
 
 if __name__ == "__main__":
     usb_dashboard()

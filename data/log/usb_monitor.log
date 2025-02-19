@@ -24,3 +24,102 @@
 2025-02-07 15:30:07,959 - DEBUG - platform is win32
 2025-02-07 15:30:08,077 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
 2025-02-07 15:30:08,096 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-10 14:49:07,323 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-10 14:49:07,442 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-10 14:49:07,445 - DEBUG - interactive is False
+2025-02-10 14:49:07,445 - DEBUG - platform is win32
+2025-02-10 14:49:07,565 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-10 14:49:07,584 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-10 16:32:55,875 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-10 16:32:55,901 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-10 16:32:55,909 - DEBUG - interactive is False
+2025-02-10 16:32:55,910 - DEBUG - platform is win32
+2025-02-10 16:32:56,154 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-10 16:32:56,163 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-11 15:25:33,075 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-11 15:25:33,218 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-11 15:25:33,221 - DEBUG - interactive is False
+2025-02-11 15:25:33,221 - DEBUG - platform is win32
+2025-02-11 15:25:33,401 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-11 15:25:33,421 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-12 15:42:27,767 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-12 15:42:27,946 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-12 15:42:27,951 - DEBUG - interactive is False
+2025-02-12 15:42:27,951 - DEBUG - platform is win32
+2025-02-12 15:42:28,101 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-12 15:42:28,121 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-12 16:03:45,017 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-12 16:03:45,025 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-12 16:03:45,028 - DEBUG - interactive is False
+2025-02-12 16:03:45,028 - DEBUG - platform is win32
+2025-02-12 16:03:45,145 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-12 16:03:45,152 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-12 16:34:14,008 - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-7730' coro=<WebSocketProtocol13.write_message.<locals>.wrapper() done, defined at C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\tornado\websocket.py:1086> exception=WebSocketClosedError()>
+Traceback (most recent call last):
+  File "C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\tornado\websocket.py", line 1088, in wrapper
+    await fut
+tornado.iostream.StreamClosedError: Stream is closed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\tornado\websocket.py", line 1090, in wrapper
+    raise WebSocketClosedError()
+tornado.websocket.WebSocketClosedError
+2025-02-12 17:42:18,947 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-12 17:42:18,962 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-12 17:42:18,965 - DEBUG - interactive is False
+2025-02-12 17:42:18,965 - DEBUG - platform is win32
+2025-02-12 17:42:19,076 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-12 17:42:19,082 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-13 14:08:36,631 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-13 14:08:36,864 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-13 14:08:36,869 - DEBUG - interactive is False
+2025-02-13 14:08:36,870 - DEBUG - platform is win32
+2025-02-13 14:08:37,092 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-13 14:08:37,125 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-13 16:11:24,787 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-13 16:11:24,797 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-13 16:11:24,799 - DEBUG - interactive is False
+2025-02-13 16:11:24,800 - DEBUG - platform is win32
+2025-02-13 16:11:24,911 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-13 16:11:24,919 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-13 16:13:50,786 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-13 16:13:50,797 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-13 16:13:50,802 - DEBUG - interactive is False
+2025-02-13 16:13:50,802 - DEBUG - platform is win32
+2025-02-13 16:13:50,931 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-13 16:13:50,939 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-13 16:16:49,911 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-13 16:16:49,918 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-13 16:16:49,919 - DEBUG - interactive is False
+2025-02-13 16:16:49,920 - DEBUG - platform is win32
+2025-02-13 16:16:49,992 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-13 16:16:49,997 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-13 16:20:29,237 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-13 16:20:29,248 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-13 16:20:29,252 - DEBUG - interactive is False
+2025-02-13 16:20:29,252 - DEBUG - platform is win32
+2025-02-13 16:20:29,371 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-13 16:20:29,376 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-13 17:45:53,012 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-13 17:45:53,024 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-13 17:45:53,028 - DEBUG - interactive is False
+2025-02-13 17:45:53,028 - DEBUG - platform is win32
+2025-02-13 17:45:53,168 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-13 17:45:53,175 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-19 12:22:44,377 - DEBUG - matplotlib data path: C:\Users\wolf\Desktop\UBMS-v3\.venv\lib\site-packages\matplotlib\mpl-data
+2025-02-19 12:22:44,516 - DEBUG - CONFIGDIR=C:\Users\wolf\.matplotlib
+2025-02-19 12:22:44,519 - DEBUG - interactive is False
+2025-02-19 12:22:44,519 - DEBUG - platform is win32
+2025-02-19 12:22:44,636 - DEBUG - CACHEDIR=C:\Users\wolf\.matplotlib
+2025-02-19 12:22:44,656 - DEBUG - Using fontManager instance from C:\Users\wolf\.matplotlib\fontlist-v330.json
+2025-02-19 12:26:18,602 - DEBUG - Popen(['git', 'version'], cwd=C:\Users\wolf\Desktop\UBMS-v3, stdin=None, shell=False, universal_newlines=False)
+2025-02-19 12:26:18,694 - DEBUG - Popen(['git', 'rev-parse', '--show-toplevel'], cwd=C:\Users\wolf\Desktop\UBMS-v3, stdin=None, shell=False, universal_newlines=False)
+2025-02-19 12:26:18,823 - DEBUG - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\wolf\Desktop\UBMS-v3, stdin=None, shell=False, universal_newlines=False)
+2025-02-19 12:26:18,905 - DEBUG - Popen(['git', 'status', '--porcelain', '--untracked-files'], cwd=C:\Users\wolf\Desktop\UBMS-v3, stdin=None, shell=False, universal_newlines=False)
+2025-02-19 12:26:19,139 - DEBUG - Popen(['git', 'diff', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\wolf\Desktop\UBMS-v3, stdin=None, shell=False, universal_newlines=False)
+2025-02-19 12:26:19,270 - DEBUG - Popen(['git', 'cat-file', '--batch-check'], cwd=C:\Users\wolf\Desktop\UBMS-v3, stdin=<valid stream>, shell=False, universal_newlines=False)
+2025-02-19 12:26:19,390 - DEBUG - Popen(['git', 'rev-list', 'origin/main..main', '--'], cwd=C:\Users\wolf\Desktop\UBMS-v3, stdin=None, shell=False, universal_newlines=False)
+2025-02-19 12:27:53,406 - INFO - USB connected: {'device': 'H:\\', 'mountpoint': 'H:\\', 'fstype': 'exFAT', 'total_size': 125155803136}

@@ -50,35 +50,39 @@ UBMS is a unified monitoring system that collects, stores, and displays various 
   - Network Logs
 
 ## Project Structure
-
 ├── app/
 │   ├── components/
-│   │   └── sidebar.py              # Sidebar components for the UI
+│   │   └── sidebar.py                 # Sidebar components for the UI
 │   ├── core/
-│   │   └── constants.py            # Application constants
+│   │   └── constants.py               # Application constants
 │   ├── services/
-│   │   ├── db_manager.py           # Database connection and CRUD functions
-│   │   ├── device_manager_service.py
-│   │   ├── device_monitor_services.py
-│   │   ├── device_service.py
-│   │   ├── file_service.py
-│   │   ├── login_service.py        # Login monitoring service (with threaded login tracking)
-│   │   ├── network_service.py
-│   │   ├── process_service.py
-│   │   └── usb_service.py
+│   │   ├── db_manager.py              # Database connection and CRUD functions
+│   │   ├── device_manager_service.py  # Device manager service for device operations
+│   │   ├── device_service.py          # Device-related monitoring operations
+│   │   ├── file_service.py            # File monitoring operations
+│   │   ├── login_service.py           # Login monitoring service (with threaded login tracking)
+│   │   ├── network_service.py         # Network monitoring and traffic analysis
+│   │   ├── process_service.py         # Process-related activities and monitoring
+│   │   └── usb_service.py             # USB event tracking and management
+│   ├── utils/
+│   │   ├── anomaly_detection.py       # Anomaly detection for suspicious activities
+│   │   ├── devices.py                 # Device management utilities
+│   │   ├── logger.py                  # Logger utility for system events
+│   │   ├── state.py                   # Session state and management utilities
 │   ├── views/
-│   │   ├── alerts.py               # Alerts view
-│   │   ├── analysis_view.py        # Anomaly analysis view
-│   │   ├── dashboard.py            # Main dashboard view
-│   │   ├── devices.py              # Devices view
-│   │   ├── file_view.py            # File activities view
-│   │   ├── login_view.py           # Login monitoring view
-│   │   ├── network_view.py         # Network activities view
-│   │   ├── process_view.py         # Process activities view
-│   │   ├── settings_view.py        # Application settings view
-│   │   └── usb_view.py             # USB events view
+│   │   ├── alerts_view.py             # Alerts view for displaying system alerts
+│   │   ├── analysis_view.py           # Anomaly analysis view for monitoring and analyzing detected anomalies
+│   │   ├── dashboard.py               # Main dashboard view for displaying system metrics and navigation
+│   │   ├── devices_view.py            # Devices view for managing connected devices
+│   │   ├── file_view.py               # File activities view for tracking file-related events
+│   │   ├── login_view.py              # Login monitoring view for tracking user logins
+│   │   ├── network_view.py            # Network activities view for monitoring network traffic
+│   │   ├── process_view.py            # Process activities view for monitoring running processes
+│   │   ├── settings_view.py           # Application settings view for managing configurations
+│   │   └── usb_view.py                # USB events view for tracking USB device actions
 ├── data/
-│   └── database.db                 # SQLite database file (automatically created)
-├── main.py                         # Main entry point for the project
-├── requirements.txt                # Python dependencies
-└── README.md                       # This file
+│   └── database.db                    # SQLite database file (automatically created)
+├── main.py                            # Main entry point for the project (handles app initialization and layout)
+├── run.py                             # Main entry point for launching the application (starts the app and runs it in a browser)
+├── requirements.txt                   # Python dependencies for the application
+└── README.md                          # Project documentation file with setup instructions and details
