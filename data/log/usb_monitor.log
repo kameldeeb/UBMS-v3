@@ -123,3 +123,4 @@ tornado.websocket.WebSocketClosedError
 2025-02-19 12:26:19,270 - DEBUG - Popen(['git', 'cat-file', '--batch-check'], cwd=C:\Users\wolf\Desktop\UBMS-v3, stdin=<valid stream>, shell=False, universal_newlines=False)
 2025-02-19 12:26:19,390 - DEBUG - Popen(['git', 'rev-list', 'origin/main..main', '--'], cwd=C:\Users\wolf\Desktop\UBMS-v3, stdin=None, shell=False, universal_newlines=False)
 2025-02-19 12:27:53,406 - INFO - USB connected: {'device': 'H:\\', 'mountpoint': 'H:\\', 'fstype': 'exFAT', 'total_size': 125155803136}
+2025-02-19 12:37:09,698 - INFO - USB disconnected: {'device': 'H:\\', 'mountpoint': 'H:\\', 'fstype': 'exFAT', 'total_size': 125155803136}
