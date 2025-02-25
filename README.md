@@ -4,6 +4,22 @@
 UBMS Dashboard is a comprehensive application designed for monitoring and managing devices on a network while detecting anomalous user behavior within an internal network using artificial intelligence techniques. The system continuously monitors various aspects such as USB connections, running processes, network traffic, login attempts, and file changes, and it presents live analytics, charts, and alerts via an interactive Streamlit-based user interface.
 
 ---
+## Screenshots & Demo
+
+Here are some screenshots of the UBMS Dashboard in action:
+
+### Dashboard Overview
+![Dashboard](images/dashboard.png)
+
+### Anomaly Analysis
+![Anomaly Detection](images/anomaly_analysis.png)
+
+### USB Monitoring
+![USB Monitoring](images/usb_monitoring.png)
+
+### **File Monitoring **
+![File Monitoring](images/File_monitoring.png)
+
 
 ## Project Contents
 
@@ -29,7 +45,7 @@ UBMS Dashboard is a comprehensive application designed for monitoring and managi
   Monitors selected folders for file changes (creation, modification, deletion) and logs detailed event information in the database.
 
 - **Device Management:**  
-  Manages both real and virtual devices, including the automatic registration of devices (using MAC addresses or UUIDs) and creation of virtual devices.
+  Manages both real and virtual devices, including the automatic registration of devices (using MAC addresses) and creation of virtual devices.
 
 - **Database Manager:**  
   Utilizes SQLite to store data for devices, events, alerts, login attempts, and network logs. The `db_manager.py` file contains functions for creating tables and performing basic CRUD operations on the database.
@@ -59,20 +75,18 @@ UBMS Dashboard is a comprehensive application designed for monitoring and managi
 
 - **Environment:**  
   - Python 3.7 or later  
-  - Operating System that supports Python (Windows is preferred for USB service compatibility, though the code can be adapted for other platforms)
 
 - **Core Libraries:**  
   - Streamlit  
-  - Pandas  
-  - NumPy  
+  - SQLite3 (included with Python) 
   - Scikit-learn  
-  - Altair  
+  - scapy 
+  - Pandas  
+  - NumPy   
   - Plotly  
-  - psutil  
-  - scapy  
+  - psutil   
   - watchdog  
-  - SQLite3 (included with Python)  
-  - tkinter (for folder selection – consider replacing this for web deployments)
+  - tkinter
 
 Install the required packages with:
 ```bash
