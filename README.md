@@ -1,4 +1,13 @@
-
+## Table of Contents
+- [Project Overview](#ubms-dashboard)
+- [Screenshots & Demo](#screenshots--demo)
+- [Key Features](#key-features)
+- [Installation & Running](#installation--running)
+- [Project Structure](#project-structure)
+- [How to Use](#how-to-use)
+- [Contributing](#contributing)
+- [License](#license)
+  
 # UBMS Dashboard
 
 UBMS Dashboard is a comprehensive application designed for monitoring and managing devices on a network while detecting anomalous user behavior within an internal network using artificial intelligence techniques. The system continuously monitors various aspects such as USB connections, running processes, network traffic, login attempts, and file changes, and it presents live analytics, charts, and alerts via an interactive Streamlit-based user interface.
@@ -17,8 +26,9 @@ Here are some screenshots of the UBMS Dashboard in action:
 ### USB Monitoring
 ![USB Monitoring](images/usb_monitoring.png)
 
-### **File Monitoring **
+### File Monitoring
 ![File Monitoring](images/File_monitoring.png)
+
 
 
 ## Project Contents
@@ -54,20 +64,11 @@ Here are some screenshots of the UBMS Dashboard in action:
 
 ## Key Features
 
-- **Comprehensive Monitoring:**  
-  Covers network traffic, processes, file system changes, USB activity, and login attempts.
-
-- **AI-based Anomaly Detection:**  
-  Implements an Isolation Forest model to analyze data and detect anomalous behavior.
-
-- **Interactive User Interface:**  
-  Built with Streamlit to provide a user-friendly, live-updating interface.
-
-- **Unified Data Logging:**  
-  All events are recorded in a single SQLite database, making data management and retrieval straightforward.
-
-- **Device Management:**  
-  Automatically registers devices and supports the creation and management of virtual devices.
+- ✅ **Comprehensive Monitoring:** Includes monitoring of **Network, Processes, File Changes, USB Activity, and Login Attempts**.
+- 🧠 **AI Detection:** Uses **Isolation Forest** to detect abnormal behaviors.
+- 📊 **Interactive Interface:** Built using **Streamlit** with live charts and statistics.
+- 🔍 **Unified Data Logging:** All events are saved in **SQLite** database.
+- 💻 **Device Management:** Supports automatic logging and management of physical and virtual devices.
 
 ---
 
@@ -160,17 +161,13 @@ ubms-dashboard/
 
 ## How to Use
 
-1. **Access the Dashboard:**  
-   When you run the application, you will be greeted with the dashboard showing an overview of the logged data (number of devices, events, alerts, and anomalies).
+1️⃣ **Open the Control Panel:** After launching the application, the control panel will appear, displaying an overview of the recorded data.
 
-2. **Navigate Between Sections:**  
-   Use the sidebar to navigate between different views such as anomaly analysis, network monitoring, USB monitoring, process monitoring, login monitoring, and file monitoring.
+2️⃣ **Navigate between sections:** Use the sidebar to access different features such as **Anomaly Analysis, Network Monitoring, USB, Processes, Logging, and Files**.
 
-3. **Configure Settings:**  
-   Adjust alert settings and monitoring configurations via the dedicated sections (e.g., alert settings in the Alerts view, monitoring settings in Network Monitoring).
+3️⃣ **Manage Settings:** Alerts and monitoring settings can be customized through the dedicated sections.
 
-4. **Data Logging & Updates:**  
-   The system continuously logs events in the SQLite database. You can view these logs and detailed information in the respective views.
+4️⃣ **Monitor and Update Data:** The system logs all events to the **SQLite** database, allowing you to easily review and analyze the data.
 
 ---
 
